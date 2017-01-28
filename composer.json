@@ -1,0 +1,17 @@
+{
+  "name": "vaneves/laravel-form",
+  "description": "HTML Helper for Laravel Framework",
+  "keywords": [
+  	"laravel",
+  	"bootstrap",
+    "form"
+  ],
+  "license": "Unlicense",
+  "authors": [{
+    "name": "Valdirene Neves Junior",   
+    "email": "vaneves@vaneves.com"
+   }],
+  "autoload": {
+    "psr-4": { "Vaneves\\": "src/Vaneves" }
+  }
+}
