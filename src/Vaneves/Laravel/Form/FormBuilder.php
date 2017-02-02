@@ -1,13 +1,13 @@
 <?php
 
-namespace Vaneves\\Laravel\Form;
+namespace Vaneves\Laravel\Form;
 
-use Vanevesaravelform\Elements\Button;
-use Vanevesaravelform\Elements\Element;
-use Vanevesaravelform\Elements\Form as FormElement;
-use Vanevesaravelform\Elements\Group;
-use Vanevesaravelform\Elements\HorizontalGroup;
-use Vanevesaravelform\Elements\Input;
+use Vaneves\Laravel\Form\Elements\Button;
+use Vaneves\Laravel\Form\Elements\Element;
+use Vaneves\Laravel\Form\Elements\Form as FormElement;
+use Vaneves\Laravel\Form\Elements\Group;
+use Vaneves\Laravel\Form\Elements\HorizontalGroup;
+use Vaneves\Laravel\Form\Elements\Input;
 
 class FormBuilder
 {
@@ -80,7 +80,7 @@ class FormBuilder
         return $input;
     }
 
-    protected function addDefaultAttributes(Input $input)
+    protected function addDefaultAttributes(Input $input, $label)
     {
         if ($this->form && $this->form->isRequired()) {
             $input->attr('required');
@@ -99,6 +99,7 @@ class FormBuilder
     protected function groupWithInput($type, $label, $name, $value = null)
     {
         $input = $this->input($type, $label, $name, $value ?? old($name));
+        $this->addDefaultAttributes($input, $label);
         return $this->group($input, $label, $name);
     }
 
@@ -191,6 +192,7 @@ class FormBuilder
     public function password($label, $name)
     {
         $input = $this->input('password', $label, $name);
+        $this->addDefaultAttributes($input, $label);
         return $this->group($input, $label, $name);
     }
 
@@ -202,7 +204,7 @@ class FormBuilder
             ->attr('value', $value)
             ->addClass('form-control');
 
-        $this->addDefaultAttributes($input);
+        $this->addDefaultAttributes($input, $label);
 
         return $this->group($input, $label, $name);
     }
@@ -214,7 +216,7 @@ class FormBuilder
             ->attr('id', $name)
             ->addClass('form-control');
 
-        $this->addDefaultAttributes($input);
+        $this->addDefaultAttributes($input, $label);
 
         foreach ($options as $value => $text) {
             $option = $this->element('option')->attr('value', $value)->text($text);
@@ -228,12 +230,12 @@ class FormBuilder
 
     public function checkbox($label, $name, $options, $value = null)
     {
-        //
+        throw new \Exception('Not implemented');
     }
 
     public function radio($label, $name, $options, $value = null)
     {
-        //
+        throw new \Exception('Not implemented');
     }
 
     public function reset($text)
