@@ -37,7 +37,7 @@ class Element
 
     public function removeAttr($name)
     {
-        if (isset($this->attributes[$name])) {
+        if (array_key_exists($name, $this->attributes)) {
             unset($this->attributes[$name]);
         }
         return $this;

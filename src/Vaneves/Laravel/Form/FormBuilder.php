@@ -8,6 +8,7 @@ use Vaneves\Laravel\Form\Elements\Form as FormElement;
 use Vaneves\Laravel\Form\Elements\Group;
 use Vaneves\Laravel\Form\Elements\HorizontalGroup;
 use Vaneves\Laravel\Form\Elements\Input;
+use Vaneves\Laravel\Form\Elements\Select;
 
 class FormBuilder
 {
@@ -100,7 +101,9 @@ class FormBuilder
     {
         $input = $this->input($type, $label, $name, $value ?? old($name));
         $this->addDefaultAttributes($input, $label);
-        return $this->group($input, $label, $name);
+        $group = $this->group($input, $label, $name);
+        $input->setGroup($group);
+        return $input;
     }
 
     public function open($action = null)
@@ -201,7 +204,7 @@ class FormBuilder
         $input = new Input('textarea');
         $input->attr('name', $name)
             ->attr('id', $name)
-            ->attr('value', $value)
+            ->append($value)
             ->addClass('form-control');
 
         $this->addDefaultAttributes($input, $label);
@@ -209,14 +212,14 @@ class FormBuilder
         return $this->group($input, $label, $name);
     }
 
-    public function select($label, $name, $options = [], $selected = null)
+    public function select($label, $name, $selected = null, $options = [])
     {
-        $select = new Input('select');
+        $select = new Select();
         $select->attr('name', $name)
             ->attr('id', $name)
             ->addClass('form-control');
 
-        $this->addDefaultAttributes($input, $label);
+        $this->addDefaultAttributes($select, $label);
 
         foreach ($options as $value => $text) {
             $option = $this->element('option')->attr('value', $value)->text($text);
